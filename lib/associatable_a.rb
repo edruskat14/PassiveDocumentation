@@ -23,7 +23,6 @@ class BelongsToOptions < AssocOptions
     @primary_key = options[:primary_key] || :id
     @foreign_key = options[:foreign_key] || "#{name}_id".to_sym
     @class_name = options[:class_name] || "#{name}".camelcase
-
   end
 end
 

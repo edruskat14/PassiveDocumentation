@@ -14,4 +14,29 @@ In this document there is a classes.rb file containing three classes, each of wh
 
 Many of the common ActiveRecord methods are available, such as: #create, #update, #all, and #find.  
 
+Here is an example of the #all method:
+```
+def self.all
+  todos = DBConnection.execute(<<-SQL)
+  SELECT
+    *
+  FROM
+    #{self.table_name}
+  SQL
+  todos.map { |hash| self.new(hash) }
+end
+```
+
 Some rails associations are also available here, including: has_many, belongs_to, and has_one_through.
+
+Here is an example of the belongs_to method:
+
+```
+class BelongsToOptions < AssocOptions
+  def initialize(name, options = {})
+    @primary_key = options[:primary_key] || :id
+    @foreign_key = options[:foreign_key] || "#{name}_id".to_sym
+    @class_name = options[:class_name] || "#{name}".camelcase
+  end
+end
+```
